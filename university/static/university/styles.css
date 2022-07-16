@@ -1,0 +1,59 @@
+html,body {
+    height: 100%;
+}
+
+.navbar-brand {
+    width: 100%;
+    margin-right: 0px;
+}
+
+.u-icons {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.nav-pills > .nav-link {
+    width: 100%;
+    border-radius: 0px;
+    text-align: center;
+    font-size: x-large;
+    color: rgb(56, 55, 55);
+}
+
+.nav-pills .nav-link.active {
+    background-color: rgb(163 24 0);    
+}
+
+.nav-pills > .nav-link:hover {
+    background-color: rgb(212, 210, 209); 
+}
+
+.nav-pills .nav-link.active, .nav-pills .show >.nav-link:hover {
+    background-color: rgb(163 24 0);    
+}
+
+.u-bar {
+    width: 75px;
+    border: 1px solid;
+}
+
+.u-menu {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    border: 1px solid;
+    margin-left: 75px;
+    background-color: rgb(212, 210, 209); 
+}
+.overlay {
+    z-index: 1;
+}
+
+.sidebar {
+    margin-right: 0px;
+    margin-left: 0px;
+}
