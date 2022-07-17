@@ -35,19 +35,31 @@ html,body {
 
 .u-bar {
     width: 75px;
-    border: 1px solid;
+    z-index: 2;
+    background-color: white;
+    border: solid 1px #e1e1e1;
+}
+
+.open-drawer {
+    transform: translateX(0%);
+    transition: transform ease-in-out 100ms;
+}
+
+.close-drawer {
+    transform: translateX(-100%);
+    transition: transform ease-in-out 100ms;
 }
 
 .u-menu {
-    width: 100%;
+    width: 300px;
     height: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    opacity: 0;
-    border: 1px solid;
     margin-left: 75px;
-    background-color: rgb(212, 210, 209); 
+    background-color: white; 
+    box-shadow: 0 0 0.5rem hsl(300, 40%, 5%);
+    border-radius: 0 7px;
 }
 .overlay {
     z-index: 1;
@@ -56,4 +68,23 @@ html,body {
 .sidebar {
     margin-right: 0px;
     margin-left: 0px;
+}
+
+.main {
+    padding: 10px;
+}
+
+.main-header {
+    text-align: center;
+}
+
+.section-home {
+    margin-top: 25px;
+}
+
+.sub-section-home>.col {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #e7e2e2;
 }

@@ -1,0 +1,42 @@
+{% extends "university/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="card" style="width: 22rem; margin: auto; margin-top: 4pc;">
+        <div class="card-body">    
+            <section class="login-section">
+                <h2>Register</h2>
+
+                {% if message %}
+                    <div>{{ message }}</div>
+                {% endif %}
+
+                <form action="{% url 'register' %}" method="post" style="margin-bottom: 20px;">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" autofocus type="text" name="firstName" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" autofocus type="text" name="lastName" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Register">
+                </form>
+
+                <span style="color:#d03f45">Already have an account?</span> <a href="{% url 'login' %}">Log In here.</a>
+            </section>
+        </div>
+    </div>
+
+{% endblock %}
