@@ -1,0 +1,22 @@
+{% extends "university/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="profile-header containter">
+    <img src="{% static 'university/assets/university/photos/profile-banner.jpeg' %}" class="profile-banner" alt="Responsive image">
+    <img src="{% static 'university/assets/university/photos/profile-image-placeholder.jpeg' %}" class="profile-image" alt="Responsive image">
+</div>
+<div class="profile-details containter">
+    <h5> {{ user.first_name }} {{ user.last_name }} </h5>
+    <div class="profile-bio">
+        <span>
+            This is the bio section
+        </span>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

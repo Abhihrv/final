@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -62,3 +63,18 @@ def register(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
+
+@login_required
+def profile(request, username):
+    user = User.objects.get(username = username)
+    return render(request, "university/profile.html", {
+        "user" : user
+    })
+
+@login_required
+def editprofile(request, username):
+    user = User.objects.get(username = username)
+    return render(request, "university/editprofile.html", {
+        "formStudent": StudentForm(),
+        "formAddress": StudentAddressForm()
+    })

@@ -2,6 +2,52 @@ html,body {
     height: 100%;
 }
 
+
+/* Mobile version settings */
+@media (max-width: 500px){
+    .u-nav-desktop {
+        display: none;
+    }
+    .u-logo-desktop {
+        opacity: 0;
+    }
+    .body {
+        margin-left: 0px;
+        height: 740px;
+    }
+}
+
+@media (min-width: 500px){
+    .u-nav-desktop {
+        display: block;
+    }
+    .u-logo-desktop {
+        opacity: 1;
+    }
+    .body {
+        margin-left: 75px;
+    }
+}
+
+@media (max-width: 280px){
+    .edit-profile-form-container {
+        padding: 5px;
+    }
+    .card-body {
+        padding: 0px;
+    }
+}
+/* Mobile version settings End */
+
+/* Sidebar Settings */
+.u-bar {
+    z-index: 2;
+}
+
+.overlay {
+    z-index: 1;
+}
+
 .navbar-brand {
     width: 100%;
     margin-right: 0px;
@@ -35,11 +81,13 @@ html,body {
 
 .u-bar {
     width: 75px;
-    z-index: 2;
     background-color: white;
     padding: 0px;
+    position: fixed;
 }
+/* Sidebar Settings End*/
 
+/* Menu Drawer Settings */
 .open-drawer {
     transform: translateX(0%);
     transition: transform ease-in-out 100ms;
@@ -61,15 +109,41 @@ html,body {
     box-shadow: 0 0 0.5rem hsl(300, 40%, 5%);
     border-radius: 0 7px;
 }
-.overlay {
-    z-index: 1;
-}
 
 .sidebar {
     margin-right: 0px;
     margin-left: 0px;
 }
 
+.nav-link > span {
+    font-size: 12px;
+    display: block;
+}
+
+.umenu-row {
+    display: block;
+    width: 100%;
+}
+
+.umenu-row-link {
+    width: 100%;
+    display:inline-block;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+}
+
+.umenu-row-link:hover {
+    border-radius: 5px;
+    color: #383737;
+    padding: 6px 6px 6px 10px;
+    margin-left: -2.5px;
+    box-shadow: 0 0 0.5rem hsl(300, 40%, 5%);
+    background-color: white;
+}
+/* Menu Drawer Settings End*/
+
+/* Main Body settings */
 .main {
     padding: 10px;
 }
@@ -88,11 +162,114 @@ html,body {
     border-radius: 10px;
     background-color: #e7e2e2;
 }
-.nav-link > span {
-    font-size: 12px;
-    display: block;
-}
+/* Main Body settings End */
+
+/* Profile Section Settings */
+
+    /* Profile Section Mobile View */
+    @media (max-width: 500px){
+        .profile-image {
+            margin-top: 10pc;
+        }
+        .profile-banner {
+            height: 15pc;
+        }
+        .profile-details {
+            margin-top: 21pc;
+        }
+    }
+
+    @media (max-width: 430px){
+        .edit-profile-form-container th {
+            width: 30%;
+            padding: 5px;
+        }
+    }
+    /* Profile Section Mobile View End*/
 
 .form-group {
     margin-bottom: 10px;
 }
+
+.tab-content {
+    margin-top: 40px;
+}
+
+.body {
+    padding: 0px;
+}
+
+.profile-header {
+    position: relative;
+}
+
+.profile-banner {
+    width: 100%;
+    height: 20pc;
+    object-fit: cover;
+    position: absolute;
+}
+
+.profile-image {
+    border-radius: 100%;
+    height: 10pc;
+    border: 4px solid #3d3d3d;
+    width: 10pc;
+    object-fit: cover;
+    box-shadow: 0 0 0.5rem hsl(300, 40%, 5%);
+    position: absolute;
+    margin-top: 15pc;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-details {
+    margin-top: 26pc;
+}
+
+.profile-details h5 {
+    text-align: center;
+}
+
+.profile-bio {
+    display: flex;
+    justify-content: center;
+}
+
+.edit-profile-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-profile-form-container .card-title {
+    margin: 17px 0px 10px 0px;
+}
+
+.edit-profile-form-container form {
+    margin-bottom: 17px;
+}
+
+.card {
+    width: 100%
+}
+
+.edit-profile-form-container table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.edit-profile-form-container th {
+    width: 50%;
+    padding: 10px;
+}
+
+.edit-profile-form-container tr {
+    line-height: 20px;
+    margin: 20px 0px;
+}
+
+/* Profile Section Settings End */

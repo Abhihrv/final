@@ -27,41 +27,58 @@
 
     <body>
             <div class="row h-100 sidebar">
-                <div class="u-bar hidden-md-down">
+                <div class="u-bar u-nav-desktop h-100 hidden-md-down" id="u-bar-mobile-toggle">
                     <div class="logo-header">
-                        <a class="navbar-brand" href="{% url 'index' %}"><img class="u-icons" src="{% static 'university/assets/university/logos/ulogo.jpeg' %}" height="70" width="70" alt="U Logo"></a>
+                        <a class="u-logo-desktop navbar-brand" href="{% url 'index' %}"><img class="u-icons" src="{% static 'university/assets/university/logos/ulogo.jpeg' %}" height="70" width="70" alt="U Logo"></a>
                     </div>
                     <div class="nav flex-column nav-pills" aria-orientation="vertical">
-                        <a class="nav-link active" href="{% url 'index' %}" data-section="home">
+                        <a class="nav-link home-link" href="{% url 'index' %}" data-section="home">
                             <i class="bi bi-house"></i>
                             <span>Home</span>
                         </a>
                         {% if user.is_authenticated %}
-                        <a class="u-nav nav-link" href="#profile" data-section="profile">
-                            <i class="bi bi-person"></i>
-                            <span>Profile</span>
-                        </a>
-                        <a class="u-nav nav-link" href="#courses" data-section="courses">
-                            <i class="bi bi-book"></i>
-                            <span>Courses</span>
-                        </a>
-                        <a class="u-nav nav-link" href="#chat" data-section="chat">
-                            <i class="bi bi-chat-square-text"></i>
-                            <span>Chat</span>
-                        </a>
-                        <a class="u-nav nav-link" href="#settings" data-section="settings">
-                            <i class="bi bi-gear"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a class="nav-link" href="{% url 'logout' %}" data-section="logout">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>Logout</span>
-                        </a>
+                            <a class="u-nav nav-link" href="#profile" data-section="profile">
+                                <i class="bi bi-person"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a class="u-nav nav-link" href="#courses" data-section="courses">
+                                <i class="bi bi-book"></i>
+                                <span>Courses</span>
+                            </a>
+                            <a class="u-nav nav-link" href="#chat" data-section="chat">
+                                <i class="bi bi-chat-square-text"></i>
+                                <span>Chat</span>
+                            </a>
+                            <a class="u-nav nav-link" href="#settings" data-section="settings">
+                                <i class="bi bi-gear"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a class="nav-link" href="{% url 'logout' %}" data-section="logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Logout</span>
+                            </a>
                         {% endif %}
                     </div>
                 </div>
-                <div class="u-menu hidden-md-down overlay close-drawer">
-                    <div class="tab-content">
+                <div class="u-menu u-nav-desktop hidden-md-down overlay close-drawer">
+                    <div class="container tab-content">
+                        <div class="row">
+                            {% if user.is_authenticated %}
+                                <div id="profile" class="umenu-row">
+                                    <a class="umenu-row-link" href="{% url 'profile' user.username %}">My Profile</a>
+                                    <a class="umenu-row-link" href="{% url 'editprofile' user.username %}">Edit Profile</a>
+                                </div>
+                                <div id="courses" class="umenu-row">
+                                    <a class="umenu-row-link" href="#">Course</a>
+                                </div>
+                                <div id="settings" class="umenu-row">
+                                    <a class="umenu-row-link" href="#">Settings</a>
+                                </div>
+                                <div id="chat" class="umenu-row">
+                                    <a class="umenu-row-link" href="#">Chat</a>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 <div class="body col">
