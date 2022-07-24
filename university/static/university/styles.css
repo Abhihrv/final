@@ -11,6 +11,9 @@ html,body {
     .u-logo-desktop {
         opacity: 0;
     }
+    .u-header-mobile {
+        display: flex;
+    }
     .body {
         margin-left: 0px;
         height: 740px;
@@ -24,6 +27,9 @@ html,body {
     .u-logo-desktop {
         opacity: 1;
     }
+    .u-header-mobile {
+        display: none !important;
+    }
     .body {
         margin-left: 75px;
     }
@@ -36,6 +42,24 @@ html,body {
     .card-body {
         padding: 0px;
     }
+}
+
+.u-header-mobile {
+    height: 65px;
+    background-color: #ffffff;
+    padding-left: 0px;
+    justify-content: space-between;
+}
+
+.u-menu-link-mobile {
+    font-size: 35px;
+    border: 1px solid rgb(163 24 0);
+    color: rgb(163 24 0);
+    padding: 0px 10px;
+    border-radius: 5px;
+}
+.u-menu-link-mobile:hover {
+    color: rgb(163 24 0);
 }
 /* Mobile version settings End */
 

@@ -81,7 +81,20 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="u-header-mobile d-flex align-items-center">
+                    <div class="logo-header-mobile d-inline-block">
+                        <a class="u-logo-mobile" href="{% url 'index' %}"><img class="u-icons" src="{% static 'university/assets/university/logos/ulogo.jpeg' %}" height="70" width="70" alt="U Logo"></a>
+                    </div>
+                    <div class="d-inline-block">
+                        <a href="#" class="u-menu-link-mobile text-decoration-none">
+                            <i class="bi bi-list"></i>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="body col">
+                    <div></div>
                     {% block body %}
                     {% endblock %}
                 </div>
