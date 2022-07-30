@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 
-#Creating separate user type model to differentiate between students and teachers
+#Creating separate user type model to differentiate between different users of the site
 class UserType(models.Model):
     code = models.CharField(max_length=2, primary_key=True)
     name = models.CharField(max_length=64)
