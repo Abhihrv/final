@@ -14,9 +14,11 @@ html,body {
     .u-header-mobile {
         display: flex;
     }
+    .u-menu-mobile {
+        display: flex;
+    }
     .body {
         margin-left: 0px;
-        height: 740px;
     }
 }
 
@@ -28,6 +30,9 @@ html,body {
         opacity: 1;
     }
     .u-header-mobile {
+        display: none !important;
+    }
+    .u-menu-mobile {
         display: none !important;
     }
     .body {
@@ -45,10 +50,12 @@ html,body {
 }
 
 .u-header-mobile {
-    height: 65px;
+    height: 70px;
     background-color: #ffffff;
     padding-left: 0px;
     justify-content: space-between;
+    z-index: 4;
+    position: absolute;
 }
 
 .u-menu-link-mobile {
@@ -58,8 +65,54 @@ html,body {
     padding: 0px 10px;
     border-radius: 5px;
 }
+
 .u-menu-link-mobile:hover {
     color: rgb(163 24 0);
+}
+
+.u-nav-mobile {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.u-nav-mobile i{
+    padding: 0px 15px;
+    font-size: 40px;
+}
+
+.u-nav-mobile span{
+    display: block;
+    text-align: center;
+}
+
+.u-menu-mobile {
+    background-color: rgb(163 24 0);
+    height: 400px;
+    align-items: baseline;
+    z-index: 3;
+    position: absolute;
+    margin-top: 70px;
+    padding: 0;
+}
+
+.u-nav-mobile-icons {
+    padding: 0px 10px;
+    color: white;
+}
+
+.u-nav-mobile-icons:hover {
+    color: white;
+}
+
+.open-mobile-drawer {
+    transform: translateY(0%);
+    transition: transform ease-in-out 100ms;
+}
+
+.close-mobile-drawer {
+    transform: translateY(-100%);
+    transition: transform ease-in-out 100ms;
 }
 /* Mobile version settings End */
 
@@ -208,6 +261,9 @@ html,body {
             width: 30%;
             padding: 5px;
         }
+        .edit-profile-form-container {
+            margin-top: 40px;
+        }
     }
     /* Profile Section Mobile View End*/
 
@@ -295,5 +351,4 @@ html,body {
     line-height: 20px;
     margin: 20px 0px;
 }
-
 /* Profile Section Settings End */

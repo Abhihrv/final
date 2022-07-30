@@ -12,23 +12,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             clearUmenu(umenu);
             showLinks(umenu, navlink.getAttribute('data-section'));
-        
         };
     });
     document.querySelector('.u-menu').onclick = (event) => {
         event.stopPropagation();
     }
-    
-    if(window.innerWidth <= 500) {
-        document.querySelector('.u-bar-mobile-toggler').onclick = () => {
-            document.querySelectorAll('.u-nav-desktop').forEach(element => {
-                if(element.style.display == 'none') {
-                    element.style.display = 'block'
-                }
-                else {
-                    element.style.display = 'none'
-                }
-            })
+    document.querySelector('.u-menu-mobile').onclick = (event) => {
+        event.stopPropagation();
+    }
+    document.querySelector('.u-menu-link-mobile').onclick = (event) => {
+        event.stopPropagation();
+        umenuMobile = document.querySelector('.u-menu-mobile');
+        if (umenuMobile.classList.value.includes('open-mobile-drawer')) {
+            closeMobileDrawer(umenuMobile);
+        } else {
+            openMobileDrawer(umenuMobile);
         }
     }
 })
@@ -55,10 +53,26 @@ function openDrawer(element) {
     document.querySelector('.body').setAttribute('style','filter: blur(2px)') ;
 }
 
+/* Close navigation menu on mobile */
+function closeMobileDrawer(element) {
+    element.classList.remove('open-mobile-drawer');
+    element.classList.add('close-mobile-drawer');
+    document.querySelector('.body').style.opacity = 1;
+    document.querySelector('.body').setAttribute('style','filter: blur(0px)') ;
+}
+
+/* Open navigation menu on mobile */
+function openMobileDrawer(element) {
+    element.classList.remove('close-mobile-drawer');
+    element.classList.add('open-mobile-drawer');
+    document.querySelector('.body').style.opacity = 0.2;
+    document.querySelector('.body').setAttribute('style','filter: blur(2px)') ;
+}
+
 /* Close navigation menu if user clicks outside it */
 window.addEventListener('click', function(event) {
-    umenu = document.querySelector('.u-menu');
-    closeDrawer(umenu);
+    closeDrawer(document.querySelector('.u-menu'));
+    closeMobileDrawer(document.querySelector('.u-menu-mobile'));
 });
 
 function clearUmenu(umenu) {
