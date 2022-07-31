@@ -17,6 +17,14 @@ class Degree(models.Model):
     def __str__(self):
         return f"{self.code} - {self.name}"
 
+class Semester(models.Model):
+    name = models.CharField(max_length=10)
+    from_month = models.IntegerField()
+    to_month = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.name}"
+
 class Course(models.Model):
 
     #The below Foreign Key relatioship to the department model was made so that its easier to pull all courses in a particular department
@@ -36,6 +44,7 @@ class StudentCourse(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course_studentcourse", default="")
     grade = models.CharField(max_length=2)
     status = models.CharField(max_length=10) #Applied/Enrolled/Completed/Failed/Dropped
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="studentcourse_semester", default="")
 
     def __str__(self):
         return f"{self.student} - {self.course}"

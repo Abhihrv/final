@@ -1,4 +1,6 @@
+from courses.models import Department
 from university.models import *
+from courses.models import *
 import requests  
 import random
 
@@ -116,3 +118,18 @@ for i in range(0,15):
     designation = random.choice(staff_designations)
     new_staff = Staff(user=new_user, age=random.randint(25,60), gender=Gender.objects.get(name=data['gender']), address=address, designation=designation)
     new_staff.save()
+
+#Adding 2 Departments
+Department(code='CS', name='Computer Science').save()
+Department(code='FIN', name='Finance').save()
+
+#Adding 2 Degrees
+Degree(dept=Department.objects.get(code='FIN'), code='MSF', name='Master of Science in Finance', credit_required=33).save()
+Degree(dept=Department.objects.get(code='CS'), code='MSCS', name='Master of Science in Computer Science', credit_required=30).save()
+
+#Adding Semesters
+Semester(name='Fall', from_month=9, to_month=12).save()
+Semester(name='Spring', from_month=1, to_month=4).save()
+
+#Adding Courses
+Course(dept=Department.objects.get(code='CS'), degree=Degree.objects.get(code='MSCS'), name='Master of Science in Computer Science', credits=30).save()
