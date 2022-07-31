@@ -37,8 +37,19 @@ class Address(models.Model):
     pincode = models.CharField(max_length=10)
     country = models.CharField(max_length=64)
     state = models.CharField(max_length=64)
+
     def __str__(self):
         return f"{self.address_type}, {self.street}, {self.apt}, {self.city}, {self.pincode}, {self.country}, {self.state}"
+
+    def serialize(self):
+        return {
+            "street": self.street,
+            "apt": self.apt,
+            "city": self.city,
+            "pincode": self.pincode,
+            "country": self.country,
+            "state": self.state
+        }    
 
 #Creating model for designations
 class Desgination(models.Model):

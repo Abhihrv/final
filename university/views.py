@@ -80,9 +80,8 @@ def editprofile(request, username):
             formAddress = StudentAddressForm(request.POST)
             if formStudent.is_valid() and formAddress.is_valid():
                 gender = formStudent.cleaned_data["gender"]
-                address_type = formAddress.cleaned_data["address_type"]
                 street = formAddress.cleaned_data["street"]
-                apt = formAddress.cleaned_data["street"]
+                apt = formAddress.cleaned_data["apt"]
                 city = formAddress.cleaned_data["city"]
                 pincode = formAddress.cleaned_data["pincode"]
                 country = formAddress.cleaned_data["country"]
@@ -90,11 +89,7 @@ def editprofile(request, username):
                 student_data = user.student_data.get()
                 student_data.gender = gender
                 student_data.save()
-                print("Address Type is {}".format(address_type))
-                if address_type == "C":
-                    address = student_data.address_current
-                elif address_type == "H":
-                   address = student_data.address_home
+                address = student_data.address_home
                 address.street = street
                 address.apt = apt
                 address.city = city
@@ -103,8 +98,8 @@ def editprofile(request, username):
                 address.state = state
                 address.save()
         return render(request, "university/editprofile.html", {
-            "formStudent": StudentForm(),
-            "formAddress": StudentAddressForm()
+            "formStudent": StudentForm(initial= {"gender": user.student_data.get().gender}),
+            "formAddress": StudentAddressForm(initial= user.student_data.get().address_home.serialize())
         })
     else:
         return render(request, "university/index.html")

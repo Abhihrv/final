@@ -20,7 +20,6 @@ from .models import *
 #     current_state = forms.CharField(label="State", initial="State", max_length=64)
 
 class StudentAddressForm(ModelForm):
-    address_type = forms.ChoiceField(choices=AddressType.objects.filter(name__in = ["current", "home"]).values_list())
     class Meta:
         model = Address
         exclude = ["address_type"]
