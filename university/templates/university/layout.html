@@ -47,7 +47,7 @@
                             </a>
                             <a class="u-nav nav-link" href="#chat" data-section="chat">
                                 <i class="bi bi-chat-square-text"></i>
-                                <span>Chat</span>
+                                <span>Connect</span>
                             </a>
                             <a class="u-nav nav-link" href="#settings" data-section="settings">
                                 <i class="bi bi-gear"></i>
@@ -69,13 +69,14 @@
                                     <a class="umenu-row-link" href="{% url 'editprofile' user.username %}">Edit Profile</a>
                                 </div>
                                 <div id="courses" class="umenu-row">
-                                    <a class="umenu-row-link" href="#">Course</a>
+                                    <a class="umenu-row-link" href="{% url 'dashboard' %}">My Dashboard</a>
+                                    <a class="umenu-row-link" href="{% url 'dashboard' %}">My Degree</a>
                                 </div>
                                 <div id="settings" class="umenu-row">
                                     <a class="umenu-row-link" href="#">Settings</a>
                                 </div>
                                 <div id="chat" class="umenu-row">
-                                    <a class="umenu-row-link" href="#">Chat</a>
+                                    <a class="umenu-row-link" href="#">My Inbox</a>
                                 </div>
                             {% endif %}
                         </div>
@@ -106,7 +107,7 @@
                             </a>
                             <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#">
                                 <i class="bi bi-chat-square-text"></i>
-                                <span>Chat</span>
+                                <span>Connect</span>
                             </a>
                             <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#">
                                 <i class="bi bi-gear"></i>
