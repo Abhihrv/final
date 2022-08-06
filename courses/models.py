@@ -40,21 +40,37 @@ class Course(models.Model):
 
 # A class to join Student and Course to record enrollment and completion
 class StudentCourse(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="course_student", default="")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course_studentcourse", default="")
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="courses_of_student", default="")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students_doing_course", default="")
     grade = models.CharField(max_length=2)
     status = models.CharField(max_length=10) #Applied/Enrolled/Completed/Failed/Dropped
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="studentcourse_semester", default="")
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentcourse", default="")
+    year = models.PositiveSmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.student} - {self.course}"
 
 # A class to join Student and Degree to record enrollment and completion
 class StudentDegree(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="degree_student", default="")
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, related_name="degree_studentdegree", default="")
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="degrees_of_student", default="")
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, related_name="students_doing_degree", default="")
     credits_achieved = models.IntegerField()
     status = models.CharField(max_length=10) #Applied/Enrolled/Completed/Dropped
-    
+    cgpa = models.DecimalField(max_digits=2, decimal_places=1)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return f"{self.student} - {self.degree}"
+
+#Storing Semester details for each student
+class StudentSemester(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="semester_student", default="")
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentsemester", default="")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.student} - {self.semester}"
