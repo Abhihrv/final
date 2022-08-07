@@ -51,18 +51,6 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.code} - {self.name}"
 
-# A class to join Student and Course to record enrollment and completion
-class StudentCourse(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="courses_of_student", default="")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students_doing_course", default="")
-    grade = models.CharField(max_length=2)
-    status = models.CharField(max_length=10, default="Applied") #Applied/Enrolled/Completed/Failed/Dropped
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentcourse", default="")
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.student} - {self.course}"
 
 # A class to join Student and Degree to record enrollment and completion
 class StudentDegree(models.Model):
@@ -88,6 +76,19 @@ class StudentSemester(models.Model):
 
     def __str__(self):
         return f"{self.student} - {self.semester}"
+
+# A class to join Student and Course to record enrollment and completion
+class StudentCourse(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="courses_of_student", default="")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students_doing_course", default="")
+    grade = models.CharField(max_length=2)
+    status = models.CharField(max_length=10, default="Applied") #Applied/Enrolled/Completed/Failed/Dropped
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentcourse", default="")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.student} - {self.course}"
 
 #Storing which teacher is going to teach which course
 class TeachingCourse(models.Model):
