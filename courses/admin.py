@@ -20,10 +20,22 @@ class StudentCourseAdmin(admin.ModelAdmin):
 class StudentDegreeAdmin(admin.ModelAdmin):
     list_display = ('student','degree', 'credits_achieved', 'status')
 
+class StudentSemesterAdmin(admin.ModelAdmin):
+    list_display = ('student', 'semester', 'created', 'updated')
+
+class TeachingCourseAdmin(admin.ModelAdmin):
+    list_display = ('teaching', 'course', 'created', 'updated')
+
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ('name', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday')
+
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Degree, DegreeAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Semester, SemesterAdmin)
 admin.site.register(StudentCourse, StudentCourseAdmin)
 admin.site.register(StudentDegree, StudentDegreeAdmin)
+admin.site.register(StudentSemester, StudentSemesterAdmin)
+admin.site.register(TeachingCourse, TeachingCourseAdmin)
+admin.site.register(Schedule, ScheduleAdmin)
 
