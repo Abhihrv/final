@@ -61,7 +61,7 @@ student_addresses = Address.objects.filter(address_type=AddressType.objects.get(
 for i in range(0,100):
     user_request = requests.get('https://randomuser.me/api/') 
     data = user_request.json()['results'][0]
-    new_user = User.objects.create_user(username=data['login']['username'], first_name=data['name']['first'], last_name=data['name']['last'], email=data['email'], password=data["login"]['password'], user_type=UserType.objects.get(code='ST'))
+    new_user = User.objects.create_user(username=data['login']['username'], first_name=data['name']['first'], last_name=data['name']['last'], email=data['email'], password=data['login']['password'], user_type=UserType.objects.get(code='ST'))
     new_user.save()
     address_current = random.choice(student_addresses)
     address_home = Address(street=str(data['location']['street']['number'])+' '+data['location']['street']['name'], apt=str(random.randint(0, 1000)), city=data['location']['city'], pincode= data['location']['postcode'], country=data['location']['country'], address_type = AddressType.objects.get(code='H'), state=data['location']['state'])
@@ -93,7 +93,7 @@ teaching_designations = Desgination.objects.filter(code__in=['inst', 'apro', 'as
 for i in range(0,30):
     user_request = requests.get('https://randomuser.me/api/') 
     data = user_request.json()['results'][0]
-    new_user = User.objects.create_user(username=data['login']['username'], first_name=data['name']['first'], last_name=data['name']['last'], email=data['email'], password=data["login"]['password'], user_type=UserType.objects.get(code='TE'))
+    new_user = User.objects.create_user(username=data['login']['username'], first_name=data['name']['first'], last_name=data['name']['last'], email=data['email'], password=data['login']['password'], user_type=UserType.objects.get(code='TE'))
     new_user.save()
     address = random.choice(teaching_addresses)
     designation = random.choice(teaching_designations)
@@ -112,7 +112,7 @@ staff_designations = Desgination.objects.filter(code__in=['laas', 'invi'])
 for i in range(0,15):
     user_request = requests.get('https://randomuser.me/api/') 
     data = user_request.json()['results'][0]
-    new_user = User.objects.create_user(username=data['login']['username'], first_name=data['name']['first'], last_name=data['name']['last'], email=data['email'], password=data["login"]['password'], user_type=UserType.objects.get(code='SF'))
+    new_user = User.objects.create_user(username=data['login']['username'], first_name=data['name']['first'], last_name=data['name']['last'], email=data['email'], password=data['login']['password'], user_type=UserType.objects.get(code='SF'))
     new_user.save()
     address = random.choice(staff_addresses)
     designation = random.choice(staff_designations)
@@ -139,45 +139,136 @@ Schedule(name='WF', wednesday=1, friday=1).save()
 
 #Adding Courses
 #Adding Finance Courses
-dept = Department.objects.get(code="FIN")                                                 
-degree = Degree.objects.get(code="MSF")   
-Course(dept=dept, degree=degree, code="FIN001", name="Advanced Corporate Finance", credits=3, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="FIN002", name="Investments and Portfolio Management", credits=3, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="FIN003", name="Financial Modeling", credits=3, schedule=Schedule.objects.get(name="WF"),semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="FIN004", name="Financial Application of Statistical Models", credits=1.5, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="FIN005", name="Introduction to Financial Programming", credits=3, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="FIN006", name="Financial Programming", credits=3, schedule=Schedule.objects.get(name="WF"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="FIN007", name="VBA for Excel", credits=1.5, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="FIN008", name="Finance Professional Lecture Series", credits=1.5, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="FIN009", name="Personal Finance Planning", credits=3, schedule=Schedule.objects.get(name="WF"),semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="FIN010", name="Financial Management and Decision Making in a Corporation", credits=3, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="FIN011", name="Cases in Corporate Financial Planning & Analysis", credits=3, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="FIN012", name="Intro Risk Management for Multi-Assets Investors", credits=3, schedule=Schedule.objects.get(name="WF"),semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="FIN013", name="Venture Capital", credits=1.5, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Fall")).save()
+dept = Department.objects.get(code='FIN')                                                 
+degree = Degree.objects.get(code='MSF')   
+Course(dept=dept, degree=degree, code='FIN001', name='Advanced Corporate Finance', credits=3, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='FIN002', name='Investments and Portfolio Management', credits=3, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='FIN003', name='Financial Modeling', credits=3, schedule=Schedule.objects.get(name='WF'),semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='FIN004', name='Financial Application of Statistical Models', credits=1.5, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='FIN005', name='Introduction to Financial Programming', credits=3, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='FIN006', name='Financial Programming', credits=3, schedule=Schedule.objects.get(name='WF'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='FIN007', name='VBA for Excel', credits=1.5, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='FIN008', name='Finance Professional Lecture Series', credits=1.5, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='FIN009', name='Personal Finance Planning', credits=3, schedule=Schedule.objects.get(name='WF'),semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='FIN010', name='Financial Management and Decision Making in a Corporation', credits=3, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='FIN011', name='Cases in Corporate Financial Planning & Analysis', credits=3, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='FIN012', name='Intro Risk Management for Multi-Assets Investors', credits=3, schedule=Schedule.objects.get(name='WF'),semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='FIN013', name='Venture Capital', credits=1.5, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Fall')).save()
 
 #Adding Finance Courses
-dept = Department.objects.get(code="CS")                                                 
-degree = Degree.objects.get(code="MSCS")   
-Course(dept=dept, degree=degree, code="CS001", name="Data Mining", credits=3, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="CS002", name="Graduate Algorithms", credits=3, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="CS003", name="Clustering", credits=3, schedule=Schedule.objects.get(name="WF"),semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="CS004", name="Data Structures and Algorithms", credits=1.5, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="CS005", name="Computational Topology", credits=3, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="CS006", name="Artificial Intelligence", credits=3, schedule=Schedule.objects.get(name="WF"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="CS007", name="Computer Vision", credits=1.5, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="CS008", name="Natural Language Processing", credits=1.5, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="CS009", name="Motion Planning", credits=3, schedule=Schedule.objects.get(name="WF"),semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="CS010", name="Distributed Systems", credits=3, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="CS011", name="Information Extraction from Text", credits=3, schedule=Schedule.objects.get(name="TTh"), semester_offered=Semester.objects.get(name="Fall")).save()
-Course(dept=dept, degree=degree, code="CS012", name="Advanced Operating System Implementation", credits=3, schedule=Schedule.objects.get(name="WF"),semester_offered=Semester.objects.get(name="Spring")).save()
-Course(dept=dept, degree=degree, code="CS013", name="Advanced Compilers", credits=1.5, schedule=Schedule.objects.get(name="MW"), semester_offered=Semester.objects.get(name="Fall")).save()
+dept = Department.objects.get(code='CS')                                                 
+degree = Degree.objects.get(code='MSCS')   
+Course(dept=dept, degree=degree, code='CS001', name='Data Mining', credits=3, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='CS002', name='Graduate Algorithms', credits=3, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='CS003', name='Clustering', credits=3, schedule=Schedule.objects.get(name='WF'),semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='CS004', name='Data Structures and Algorithms', credits=1.5, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='CS005', name='Computational Topology', credits=3, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='CS006', name='Artificial Intelligence', credits=3, schedule=Schedule.objects.get(name='WF'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='CS007', name='Computer Vision', credits=1.5, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='CS008', name='Natural Language Processing', credits=1.5, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='CS009', name='Motion Planning', credits=3, schedule=Schedule.objects.get(name='WF'),semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='CS010', name='Distributed Systems', credits=3, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='CS011', name='Information Extraction from Text', credits=3, schedule=Schedule.objects.get(name='TTh'), semester_offered=Semester.objects.get(name='Fall')).save()
+Course(dept=dept, degree=degree, code='CS012', name='Advanced Operating System Implementation', credits=3, schedule=Schedule.objects.get(name='WF'),semester_offered=Semester.objects.get(name='Spring')).save()
+Course(dept=dept, degree=degree, code='CS013', name='Advanced Compilers', credits=1.5, schedule=Schedule.objects.get(name='MW'), semester_offered=Semester.objects.get(name='Fall')).save()
 
 #Assigning courses to the teaching staff
 teachers = list(Teaching.objects.all())
 num_teachers = len(teachers)
 fin_teachers = random.sample(teachers, int(num_teachers/2))
 cs_teachers = list(filter(lambda teacher: teacher not in fin_teachers, teachers))
-fin_courses = Department.objects.get(code="FIN").courses_in_dept.all()
-cs_courses = Department.objects.get(code="CS").courses_in_dept.all()
+fin_courses = Department.objects.get(code='FIN').courses_in_dept.all()
+cs_courses = Department.objects.get(code='CS').courses_in_dept.all()
 [TeachingCourse(teaching=fin_teachers[i], course=fin_courses[i]).save() for i in range(0, len(fin_courses))]
 [TeachingCourse(teaching=cs_teachers[i], course=cs_courses[i]).save() for i in range(0, len(fin_courses))]
+
+#Creating various statuses
+Status(code = 0, name = 'Default').save()
+Status(code = 1, name = 'Applied').save()
+Status(code = 2, name = 'Enrolled').save()
+Status(code = 3, name = 'Completed').save()
+Status(code = 4, name = 'Dropped').save()
+Status(code = 5, name = 'Failed').save()
+
+#Enrolling a student in a degree
+StudentDegree(
+    student = User.objects.get(username='crazytiger479').student_data.get(),
+    degree = Degree.objects.get(code='MSCS'),
+    credits_achieved = 0,
+    status = Status.objects.get(code = 2),
+    cgpa = 0.0
+).save()
+
+#Enrolling a student in the fall semester
+StudentSemester(
+    student = User.objects.get(username='crazytiger479').student_data.get(),
+    semester = Semester.objects.get(name='Fall'),
+    status = Status.objects.get(code = 2),
+    sgpa = 0
+).save()
+
+#Creating Grading criteria A+ = 4.0, A = 4.0, A- = 3.7. B+ = 3.3, B = 3.0, B- = 2.7. C+ =2.3, C = 2.0, C- = 1.7. D+ = 1.3, D = 1.0, F = 0
+Grade(code = 'A+', value = 4.0).save()
+Grade(code = 'A', value = 4.0).save()
+Grade(code = 'A-', value = 3.7).save()
+Grade(code = 'B+', value = 3.3).save()
+Grade(code = 'B', value = 3.0).save()
+Grade(code = 'B-', value = 2.7).save()
+Grade(code = 'C+', value = 2.3).save()
+Grade(code = 'C', value = 2.0).save()
+Grade(code = 'C-', value = 1.7).save()
+Grade(code = 'D+', value = 1.3).save()
+Grade(code = 'D', value = 1.0).save()
+Grade(code = 'F', value = 0).save()
+Grade(code = 'Def', value = 0).save()
+
+#Enrolling 2 Students in courses
+StudentCourse(
+    student = User.objects.get(username='crazytiger479').student_data.get(),
+    course = Course.objects.get(code = 'CS001'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()
+StudentCourse(
+    student = User.objects.get(username='crazytiger479').student_data.get(),
+    course = Course.objects.get(code = 'CS002'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()
+StudentCourse(
+    student = User.objects.get(username='crazytiger479').student_data.get(),
+    course = Course.objects.get(code = 'CS003'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()
+StudentCourse(
+    student = User.objects.get(username='crazytiger479').student_data.get(),
+    course = Course.objects.get(code = 'CS004'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()
+
+StudentCourse(
+    student = User.objects.get(username='troymaster').student_data.get(),
+    course = Course.objects.get(code = 'CS005'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()
+StudentCourse(
+    student = User.objects.get(username='troymaster').student_data.get(),
+    course = Course.objects.get(code = 'CS006'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()
+StudentCourse(
+    student = User.objects.get(username='troymaster').student_data.get(),
+    course = Course.objects.get(code = 'CS007'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()
+StudentCourse(
+    student = User.objects.get(username='troymaster').student_data.get(),
+    course = Course.objects.get(code = 'CS008'),
+    status = Status.objects.get(code = 2),
+    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+).save()

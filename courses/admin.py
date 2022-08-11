@@ -18,7 +18,7 @@ class StudentCourseAdmin(admin.ModelAdmin):
     list_display = ('student','course', 'grade', 'status')
 
 class StudentDegreeAdmin(admin.ModelAdmin):
-    list_display = ('student','degree', 'credits_achieved', 'status')
+    list_display = ('student','degree', 'credits_achieved', 'status', 'cgpa')
 
 class StudentSemesterAdmin(admin.ModelAdmin):
     list_display = ('student', 'semester', 'created', 'updated')
@@ -29,6 +29,9 @@ class TeachingCourseAdmin(admin.ModelAdmin):
 class ScheduleAdmin(admin.ModelAdmin):
     list_display = ('name', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday')
 
+class GradeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'value')
+
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Degree, DegreeAdmin)
 admin.site.register(Course, CourseAdmin)
@@ -38,4 +41,5 @@ admin.site.register(StudentDegree, StudentDegreeAdmin)
 admin.site.register(StudentSemester, StudentSemesterAdmin)
 admin.site.register(TeachingCourse, TeachingCourseAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
+admin.site.register(Grade, GradeAdmin)
 

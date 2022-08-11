@@ -11,4 +11,9 @@ from .models import *
 #Index view for courses app
 @login_required
 def dashboard(request):
-    return render(request, "courses/dashboard.html")
+    user = request.user
+    student = user.student_data.get()
+    student_courses = student.courses_of_student.all()
+    return render(request, "courses/dashboard.html", {
+        "student_courses" : student_courses
+    })

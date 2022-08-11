@@ -67,7 +67,7 @@ class Student(models.Model):
     age = models.IntegerField()
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, related_name="students_of_gender")
     address_home = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="students_at_home_address", default="")
-    address_current = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="students_at_current_address", default="")
+    address_current = models.ForeignKey(Address, on_delete=models.SET_DEFAULT, related_name="students_at_current_address", default=Address.objects.get(street="90 Connor St.").id)
     designation = models.ForeignKey(Desgination, on_delete=models.CASCADE, related_name="students_in_designation")
 
     def __str__(self):

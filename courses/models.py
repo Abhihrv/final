@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 from university.models import Student, Teaching
 
 class Department(models.Model):
@@ -36,6 +37,22 @@ class Schedule(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+#Status codes for various models
+class Status(models.Model):
+    code = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.name}"
+
+#Grade Scale to calculate SGPA
+class Grade(models.Model):
+    code = models.CharField(max_length=2)
+    value = models.DecimalField(max_digits=2, decimal_places=1)
+
+    def __str__(self):
+        return f"{self.code} = {self.value}"
+
 class Course(models.Model):
 
     #The below Foreign Key relatioship to the department model was made so that its easier to pull all courses in a particular department
@@ -45,7 +62,7 @@ class Course(models.Model):
     code = models.CharField(max_length=6, primary_key=True)
     name = models.CharField(max_length=64)
     credits = models.DecimalField(max_digits=2, decimal_places=1)
-    schedule = models.ForeignKey(Schedule, on_delete=models.SET_DEFAULT, related_name="courses_on_schedule", default="")
+    schedule = models.ForeignKey(Schedule, on_delete=models.SET_DEFAULT, related_name="courses_on_schedule", default=0)
     semester_offered = models.ForeignKey(Semester, on_delete=models.SET_DEFAULT, related_name="courses_in_semester", default=0)
 
     def __str__(self):
@@ -61,6 +78,7 @@ class StudentDegree(models.Model):
     cgpa = models.DecimalField(max_digits=2, decimal_places=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return f"{self.student} - {self.degree}"
@@ -73,6 +91,7 @@ class StudentSemester(models.Model):
     sgpa = models.DecimalField(max_digits=2, decimal_places=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return f"{self.student} - {self.semester}"
@@ -81,11 +100,12 @@ class StudentSemester(models.Model):
 class StudentCourse(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="courses_of_student", default="")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students_doing_course", default="")
-    grade = models.CharField(max_length=2)
+    grade = models.ForeignKey(Grade, on_delete=models.SET_DEFAULT, related_name="students_with_grade", default=Grade.objects.get(code="Def").id)
     status = models.CharField(max_length=10, default="Applied") #Applied/Enrolled/Completed/Failed/Dropped
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentcourse", default="")
+    semester = models.ForeignKey(StudentSemester, on_delete=models.CASCADE, related_name="studentsemester_courses", default="")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return f"{self.student} - {self.course}"
@@ -96,6 +116,7 @@ class TeachingCourse(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="teching_course", default="")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return f"{self.teaching} - {self.course}"
