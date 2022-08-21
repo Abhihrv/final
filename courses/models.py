@@ -74,7 +74,7 @@ class StudentDegree(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="degrees_of_student", default="")
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE, related_name="students_doing_degree", default="")
     credits_achieved = models.IntegerField()
-    status = models.CharField(max_length=10, default="Applied") #Applied/Enrolled/Completed/Dropped
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentdegree", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Dropped
     cgpa = models.DecimalField(max_digits=2, decimal_places=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -87,7 +87,7 @@ class StudentDegree(models.Model):
 class StudentSemester(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="semester_student", default="")
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentsemester", default="")
-    status = models.CharField(max_length=10, default="Applied") #Applied/Enrolled/Completed/Dropped
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentsemester", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Dropped
     sgpa = models.DecimalField(max_digits=2, decimal_places=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -101,7 +101,7 @@ class StudentCourse(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="courses_of_student", default="")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students_doing_course", default="")
     grade = models.ForeignKey(Grade, on_delete=models.SET_DEFAULT, related_name="students_with_grade", default=Grade.objects.get(code="Def").id)
-    status = models.CharField(max_length=10, default="Applied") #Applied/Enrolled/Completed/Failed/Dropped
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentcourse", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Failed/Dropped
     semester = models.ForeignKey(StudentSemester, on_delete=models.CASCADE, related_name="studentsemester_courses", default="")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

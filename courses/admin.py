@@ -32,6 +32,9 @@ class ScheduleAdmin(admin.ModelAdmin):
 class GradeAdmin(admin.ModelAdmin):
     list_display = ('code', 'value')
 
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name')
+
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Degree, DegreeAdmin)
 admin.site.register(Course, CourseAdmin)
@@ -42,4 +45,5 @@ admin.site.register(StudentSemester, StudentSemesterAdmin)
 admin.site.register(TeachingCourse, TeachingCourseAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
 admin.site.register(Grade, GradeAdmin)
+admin.site.register(Status, StatusAdmin)
 

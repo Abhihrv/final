@@ -129,3 +129,5 @@ AUTH_USER_MODEL = "university.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
 MEDIA_URL = 'assets/'
 LOGIN_URL = '/login'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
