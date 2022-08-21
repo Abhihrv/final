@@ -7,7 +7,7 @@
         {% for student_course in student_courses %}
             <div class="col-sm-3">
                 <a href="#" class="card course-card mx-auto">
-                    <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/202009/e-learning_digital_education-1200x1080.jpg?XjMNHsb4gLoU_cC7110HB7jVghJQROOj" class="card-img-top" alt="...">
+                    <img src="{% static 'university/assets/courses/photos/course-photo.jpeg' %}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h6 class="card-title">{{ student_course.course.code }}<br>{{ student_course.course.name }}</h5>
                     </div>

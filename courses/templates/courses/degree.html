@@ -1,0 +1,19 @@
+{% extends "university/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container section-home">
+        <div class="row">
+            {% for mydegree in mydegrees %}
+                <div class="col-sm-3">
+                    <a href="#" class="card course-card mx-auto">
+                        <img src="{% static 'university/assets/courses/photos/course-photo.jpeg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ mydegree.degree.code }}<br>{{ mydegree.degree.name }}</h5>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

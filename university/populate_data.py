@@ -198,9 +198,23 @@ StudentDegree(
     cgpa = 0.0
 ).save()
 
+StudentDegree(
+    student = User.objects.get(username='troymaster').student_data.get(),
+    degree = Degree.objects.get(code='MSF'),
+    credits_achieved = 0,
+    status = Status.objects.get(code = 2),
+    cgpa = 0.0
+).save()
+
 #Enrolling a student in the fall semester
 StudentSemester(
     student = User.objects.get(username='crazytiger479').student_data.get(),
+    semester = Semester.objects.get(name='Fall'),
+    status = Status.objects.get(code = 2),
+    sgpa = 0
+).save()
+StudentSemester(
+    student = User.objects.get(username='troymaster').student_data.get(),
     semester = Semester.objects.get(name='Fall'),
     status = Status.objects.get(code = 2),
     sgpa = 0
