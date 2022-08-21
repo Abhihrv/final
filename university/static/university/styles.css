@@ -177,7 +177,7 @@ html,body {
 }
 
 .u-menu {
-    width: 300px;
+    width: 400px;
     height: 100%;
     position: fixed;
     top: 0;
@@ -209,6 +209,7 @@ html,body {
     text-decoration: none;
     color: white;
     margin: 10px;
+    transition: all 50ms ease-in-out;
 }
 
 .umenu-row-link:hover {
@@ -218,6 +219,7 @@ html,body {
     margin-left: -2.5px;
     box-shadow: 0 0 0.5rem hsl(300, 40%, 5%);
     background-color: white;
+    transition-delay: 40ms;
 }
 /* Menu Drawer Settings End*/
 
