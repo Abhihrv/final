@@ -1,4 +1,3 @@
-from courses.models import Department
 from university.models import *
 from courses.models import *
 import requests  
@@ -250,25 +249,25 @@ StudentCourse(
 
 StudentCourse(
     student = User.objects.get(username='troymaster').student_data.get(),
-    course = Course.objects.get(code = 'CS005'),
+    course = Course.objects.get(code = 'FIN005'),
     status = Status.objects.get(code = 2),
-    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+    semester = StudentSemester.objects.get(student=User.objects.get(username='troymaster').student_data.get())
 ).save()
 StudentCourse(
     student = User.objects.get(username='troymaster').student_data.get(),
-    course = Course.objects.get(code = 'CS006'),
+    course = Course.objects.get(code = 'FIN006'),
     status = Status.objects.get(code = 2),
-    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+    semester = StudentSemester.objects.get(student=User.objects.get(username='troymaster').student_data.get())
 ).save()
 StudentCourse(
     student = User.objects.get(username='troymaster').student_data.get(),
-    course = Course.objects.get(code = 'CS007'),
+    course = Course.objects.get(code = 'FIN007'),
     status = Status.objects.get(code = 2),
-    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+    semester = StudentSemester.objects.get(student=User.objects.get(username='troymaster').student_data.get())
 ).save()
 StudentCourse(
     student = User.objects.get(username='troymaster').student_data.get(),
-    course = Course.objects.get(code = 'CS008'),
+    course = Course.objects.get(code = 'FIN008'),
     status = Status.objects.get(code = 2),
-    semester = StudentSemester.objects.get(student=User.objects.get(username='crazytiger479').student_data.get())
+    semester = StudentSemester.objects.get(student=User.objects.get(username='troymaster').student_data.get())
 ).save()
