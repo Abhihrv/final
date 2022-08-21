@@ -94,7 +94,7 @@ class StudentSemester(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return f"{self.student} - {self.semester}"
+        return f"{self.student} - {self.semester} - {self.created.year}"
 
 # A class to join Student and Course to record enrollment and completion
 class StudentCourse(models.Model):
