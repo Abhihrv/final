@@ -83,6 +83,16 @@ class StudentDegree(models.Model):
     def __str__(self):
         return f"{self.student} - {self.degree}"
 
+    def serialize(self):
+        return {
+            "student": self.student.id,
+            "degree": self.degree.name,
+            "degreeCode": self.degree.code,
+            "credits_achieved": self.credits_achieved,
+            "status": self.status.name,
+            "cgpa": self.cgpa
+        }
+
 #Storing Semester details for each student
 class StudentSemester(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="semester_student", default="")
@@ -120,3 +130,11 @@ class TeachingCourse(models.Model):
 
     def __str__(self):
         return f"{self.teaching} - {self.course}"
+
+#Model to record the current time
+class Current(models.Model):
+    currentDateTime = models.DateTimeField()
+    currentSemester = models.ForeignKey(Semester, on_delete=models.SET_DEFAULT, related_name="current_semeter", default="")
+
+    def __str__(self):
+        return f"{self.currentSemester} - {self.currentDateTime}"

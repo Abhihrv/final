@@ -389,3 +389,17 @@ html,body {
     }
 }
 /* Dashboard Settings End */
+
+/* Courses Page Settings */
+.degree-details-center {
+    width: 600px;
+    max-width: 100%;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.degree-home {
+    padding-top: 15px;
+}
+/* Courses Settings End */

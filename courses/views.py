@@ -25,3 +25,8 @@ def degree(request):
     return render(request, "courses/degree.html", {
         "mydegrees" : mydegrees
     })
+
+@login_required
+def getDegree(request, degree_id):
+    mydegree = StudentDegree.objects.get(id=degree_id)
+    return JsonResponse(mydegree.serialize(), safe=False)

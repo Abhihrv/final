@@ -50,7 +50,7 @@ function openDrawer(element) {
     element.classList.remove('close-drawer');
     element.classList.add('open-drawer');
     document.querySelector('.body').style.opacity = 0.2;
-    document.querySelector('.body').setAttribute('style','filter: blur(2px)') ;
+    document.querySelector('.body').setAttribute('style','filter: blur(2px)');
 }
 
 /* Close navigation menu on mobile */
