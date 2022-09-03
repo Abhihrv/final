@@ -189,6 +189,21 @@ Status(code = 3, name = 'Completed').save()
 Status(code = 4, name = 'Dropped').save()
 Status(code = 5, name = 'Failed').save()
 
+#Creating Grading criteria A+ = 4.0, A = 4.0, A- = 3.7. B+ = 3.3, B = 3.0, B- = 2.7. C+ =2.3, C = 2.0, C- = 1.7. D+ = 1.3, D = 1.0, F = 0
+Grade(code = 'A+', value = 4.0).save()
+Grade(code = 'A', value = 4.0).save()
+Grade(code = 'A-', value = 3.7).save()
+Grade(code = 'B+', value = 3.3).save()
+Grade(code = 'B', value = 3.0).save()
+Grade(code = 'B-', value = 2.7).save()
+Grade(code = 'C+', value = 2.3).save()
+Grade(code = 'C', value = 2.0).save()
+Grade(code = 'C-', value = 1.7).save()
+Grade(code = 'D+', value = 1.3).save()
+Grade(code = 'D', value = 1.0).save()
+Grade(code = 'F', value = 0).save()
+Grade(code = 'Def', value = 0).save()
+
 #Enrolling a student in a degree
 StudentDegree(
     student = User.objects.get(username='crazytiger479').student_data.get(),
@@ -219,21 +234,6 @@ StudentSemester(
     status = Status.objects.get(code = 2),
     sgpa = 0
 ).save()
-
-#Creating Grading criteria A+ = 4.0, A = 4.0, A- = 3.7. B+ = 3.3, B = 3.0, B- = 2.7. C+ =2.3, C = 2.0, C- = 1.7. D+ = 1.3, D = 1.0, F = 0
-Grade(code = 'A+', value = 4.0).save()
-Grade(code = 'A', value = 4.0).save()
-Grade(code = 'A-', value = 3.7).save()
-Grade(code = 'B+', value = 3.3).save()
-Grade(code = 'B', value = 3.0).save()
-Grade(code = 'B-', value = 2.7).save()
-Grade(code = 'C+', value = 2.3).save()
-Grade(code = 'C', value = 2.0).save()
-Grade(code = 'C-', value = 1.7).save()
-Grade(code = 'D+', value = 1.3).save()
-Grade(code = 'D', value = 1.0).save()
-Grade(code = 'F', value = 0).save()
-Grade(code = 'Def', value = 0).save()
 
 #Enrolling 2 Students in courses
 StudentCourse(

@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from simple_history.models import HistoricalRecords
 from university.models import Student, Teaching
@@ -76,12 +77,14 @@ class StudentDegree(models.Model):
     credits_achieved = models.IntegerField()
     status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentdegree", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Dropped
     cgpa = models.DecimalField(max_digits=2, decimal_places=1)
+    enrollment_date = models.DateTimeField(default=datetime.now)
+    completed_date = models.DateTimeField(default=datetime.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
     def __str__(self):
-        return f"{self.student} - {self.degree}"
+        return f"{self.student} - {self.degree} - {self.enrollment_date.year}"
 
     def serialize(self):
         return {
@@ -99,12 +102,13 @@ class StudentSemester(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentsemester", default="")
     status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentsemester", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Dropped
     sgpa = models.DecimalField(max_digits=2, decimal_places=1)
+    enrollment_date = models.DateTimeField(default=datetime.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
     def __str__(self):
-        return f"{self.student} - {self.semester} - {self.created.year}"
+        return f"{self.student} - {self.semester} - {self.enrollment_date.year}"
 
 # A class to join Student and Course to record enrollment and completion
 class StudentCourse(models.Model):
@@ -119,6 +123,12 @@ class StudentCourse(models.Model):
 
     def __str__(self):
         return f"{self.student} - {self.course}"
+    
+    def serialize(self):
+        return {
+            "semester" : self.semester,
+            "course" : self.course
+        }
 
 #Storing which teacher is going to teach which course
 class TeachingCourse(models.Model):
