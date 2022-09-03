@@ -15,7 +15,7 @@ class SemesterAdmin(admin.ModelAdmin):
     list_display = ('name','from_month', 'to_month')
 
 class StudentCourseAdmin(admin.ModelAdmin):
-    list_display = ('student','course', 'grade', 'status')
+    list_display = ('student','course', 'semester', 'grade', 'status')
 
 class StudentDegreeAdmin(admin.ModelAdmin):
     list_display = ('student','degree', 'credits_achieved', 'status', 'cgpa')
