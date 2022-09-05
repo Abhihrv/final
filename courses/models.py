@@ -23,9 +23,10 @@ class Semester(models.Model):
     name = models.CharField(max_length=10)
     from_month = models.IntegerField()
     to_month = models.IntegerField()
+    start = models.DateTimeField(default=datetime(2022,1,1))
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} {self.start.year}"
 
 class Schedule(models.Model):
     name = models.CharField(max_length=3)
@@ -75,7 +76,7 @@ class StudentDegree(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="degrees_of_student", default="")
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE, related_name="students_doing_degree", default="")
     credits_achieved = models.IntegerField()
-    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentdegree", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Dropped
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentdegree", default="") #Applied/Enrolled/Completed/Dropped
     cgpa = models.DecimalField(max_digits=2, decimal_places=1)
     enrollment_date = models.DateTimeField(default=datetime.now)
     completed_date = models.DateTimeField(default=datetime.now)
@@ -100,7 +101,7 @@ class StudentDegree(models.Model):
 class StudentSemester(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="semester_student", default="")
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="semester_studentsemester", default="")
-    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentsemester", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Dropped
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentsemester", default="") #Applied/Enrolled/Completed/Dropped
     sgpa = models.DecimalField(max_digits=2, decimal_places=1)
     enrollment_date = models.DateTimeField(default=datetime.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -114,8 +115,8 @@ class StudentSemester(models.Model):
 class StudentCourse(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="courses_of_student", default="")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students_doing_course", default="")
-    grade = models.ForeignKey(Grade, on_delete=models.SET_DEFAULT, related_name="students_with_grade", default=Grade.objects.get(code="Def").id)
-    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentcourse", default=Status.objects.get(code=0).code) #Applied/Enrolled/Completed/Failed/Dropped
+    grade = models.ForeignKey(Grade, on_delete=models.SET_DEFAULT, related_name="students_with_grade", default="")
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentcourse", default="") #Applied/Enrolled/Completed/Failed/Dropped
     semester = models.ForeignKey(StudentSemester, on_delete=models.CASCADE, related_name="studentsemester_courses", default="")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -148,3 +149,11 @@ class Current(models.Model):
 
     def __str__(self):
         return f"{self.currentSemester} - {self.currentDateTime}"
+
+#Model to record course content
+class CourseContent(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course_content", default="")
+    description = models.TextField()
+    lecture_url = models.URLField()
+    notes = models.URLField()
+    name = models.CharField(max_length=15)

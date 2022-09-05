@@ -31,3 +31,20 @@ def degree(request):
 def getDegree(request, degree_id):
     mydegree = StudentDegree.objects.get(id=degree_id)
     return JsonResponse(mydegree.serialize(), safe=False)
+
+@login_required
+def getPreviousSem(request):
+    student = request.user.student_data.get()
+    current = Current.objects.first()
+    previousSems = student.semester_student.filter(semester__start__lt=current.currentDateTime)
+    return render(request, "courses/previous-semesters.html", {
+        "previousSems" : previousSems
+    })
+
+@login_required
+def course(request,course_code):
+    course = Course.objects.get(code=course_code)
+    student_course = StudentCourse.objects.get(student=Student.objects.get(user=request.user), course=course)
+    return render(request, "courses/course.html", {
+        "student_course" : student_course
+    })

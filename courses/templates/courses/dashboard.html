@@ -6,7 +6,7 @@
     <div class="row">
         {% for student_course in student_courses %}
             <div class="col-sm-3">
-                <a href="#" class="card course-card mx-auto">
+                <a href="{% url 'course' student_course.course.code %}" class="card course-card mx-auto">
                     <img src="{% static 'university/assets/courses/photos/course-photo.jpeg' %}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h6 class="card-title">{{ student_course.course.code }}<br>{{ student_course.course.name }}</h6>

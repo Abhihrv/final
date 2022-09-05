@@ -9,10 +9,10 @@ class DegreeAdmin(admin.ModelAdmin):
     list_display = ('dept','code', 'name', 'credit_required')
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('dept','code', 'name', 'credits', 'degree')
+    list_display = ('dept','code', 'name', 'credits', 'degree', 'semester_offered')
 
 class SemesterAdmin(admin.ModelAdmin):
-    list_display = ('name','from_month', 'to_month')
+    list_display = ('name','from_month', 'to_month', 'start')
 
 class StudentCourseAdmin(admin.ModelAdmin):
     list_display = ('student','course', 'semester', 'grade', 'status')
@@ -21,7 +21,7 @@ class StudentDegreeAdmin(admin.ModelAdmin):
     list_display = ('student','degree', 'credits_achieved', 'status', 'cgpa')
 
 class StudentSemesterAdmin(admin.ModelAdmin):
-    list_display = ('student', 'semester', 'created', 'updated')
+    list_display = ('student', 'semester', 'created', 'updated', 'enrollment_date')
 
 class TeachingCourseAdmin(admin.ModelAdmin):
     list_display = ('teaching', 'course', 'created', 'updated')

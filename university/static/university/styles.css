@@ -403,3 +403,13 @@ html,body {
     padding-top: 15px;
 }
 /* Courses Settings End */
+
+/* Course page setting */
+.accordion-button:not(.collapsed) {
+    color: #a21801;
+    background-color: #f4e5e3; 
+}
+.course-page-row {
+    margin-top: 20px;
+}
+/* Course page setting end */
