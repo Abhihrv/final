@@ -38,6 +38,9 @@ class StatusAdmin(admin.ModelAdmin):
 class CurrentAdmin(admin.ModelAdmin):
     list_display = ('currentDateTime', 'currentSemester')
 
+class CourseContentAdmin(admin.ModelAdmin):
+    list_display = ('course', 'description', 'lecture_url', 'notes', 'name')
+
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Degree, DegreeAdmin)
 admin.site.register(Course, CourseAdmin)
@@ -50,4 +53,5 @@ admin.site.register(Schedule, ScheduleAdmin)
 admin.site.register(Grade, GradeAdmin)
 admin.site.register(Status, StatusAdmin)
 admin.site.register(Current, CurrentAdmin)
+admin.site.register(CourseContent, CourseContentAdmin)
 

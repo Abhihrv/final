@@ -157,3 +157,10 @@ class CourseContent(models.Model):
     lecture_url = models.URLField()
     notes = models.URLField()
     name = models.CharField(max_length=15)
+
+#Model to record assignment
+class Assignment(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course_assignment", default="")
+    description = models.TextField()
+    questions = models.URLField()
+

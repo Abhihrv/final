@@ -346,3 +346,14 @@ StudentCourse(
     status = Status.objects.get(code = 2),
     semester = StudentSemester.objects.get(student=User.objects.get(username='silvermeercat348').student_data.get(), enrollment_date = datetime(2022,1,1))
 ).save()
+
+courses = Course.objects.all()
+for course in courses:
+    for i in range(1,11):
+        CourseContent(
+            course = course,
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            lecture_url = "https://www.youtube.com/watch?v=IDDmrzzB14M",
+            notes = "https://cs50.harvard.edu/x/2022/notes/1/",
+            name = f"Lecture {i}"
+        ).save()
