@@ -242,6 +242,14 @@ html,body {
     border-radius: 10px;
     background-color: #e7e2e2;
 }
+
+#registration-form .card,.table{
+    border-color: transparent;
+}
+
+#registration-form .helptext {
+    font-size: 11px;
+}
 /* Main Body settings End */
 
 /* Profile Section Settings */

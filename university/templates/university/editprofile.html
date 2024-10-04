@@ -13,12 +13,6 @@
                 <form action="{% url 'editprofile' user.username %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="card-title">
-                        Personal Information
-                    </div>
-                    <table>
-                        {{ formStudent.as_table }}
-                    </table>
-                    <div class="card-title">
                         Edit Home Address
                     </div>
                     <table>
