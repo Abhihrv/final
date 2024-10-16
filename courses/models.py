@@ -75,9 +75,9 @@ class Course(models.Model):
 class StudentDegree(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="degrees_of_student", default="")
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE, related_name="students_doing_degree", default="")
-    credits_achieved = models.IntegerField()
-    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentdegree", default="") #Applied/Enrolled/Completed/Dropped
-    cgpa = models.DecimalField(max_digits=2, decimal_places=1)
+    credits_achieved = models.IntegerField(default=0)
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentdegree", default=1) #Applied/Enrolled/Completed/Dropped
+    cgpa = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     enrollment_date = models.DateTimeField(default=datetime.now)
     completed_date = models.DateTimeField(default=datetime.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -115,9 +115,9 @@ class StudentSemester(models.Model):
 class StudentCourse(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="courses_of_student", default="")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students_doing_course", default="")
-    grade = models.ForeignKey(Grade, on_delete=models.SET_DEFAULT, related_name="students_with_grade", default="")
-    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentcourse", default="") #Applied/Enrolled/Completed/Failed/Dropped
-    semester = models.ForeignKey(StudentSemester, on_delete=models.CASCADE, related_name="studentsemester_courses", default="")
+    grade = models.ForeignKey(Grade, on_delete=models.SET_DEFAULT, related_name="students_with_grade", default=13)
+    status = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, related_name="status_studentcourse", default=1) #Applied/Enrolled/Completed/Failed/Dropped
+    semester = models.ForeignKey(StudentSemester, on_delete=models.CASCADE, related_name="studentsemester_courses")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()

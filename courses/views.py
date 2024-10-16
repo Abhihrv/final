@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import *
+from .forms import *
 
 # Create your views here
 
@@ -28,18 +29,26 @@ def degree(request):
     })
 
 @login_required
+def registerDegree(request):
+    if request.method == "POST":
+        student = request.user.student_data.get()
+        degreeForm = DegreeForm(request.POST)
+        if degreeForm.is_valid():
+            degree = degreeForm.cleaned_data["degree"]
+            studentdegree = StudentDegree(student=student, degree=degree)
+            studentdegree.save()
+            return HttpResponseRedirect(reverse("mydegree"))
+    return render(request, "courses/registration.html", {
+            "name": "Degree",
+            "formUrl": "registerDegree",
+            "registrationForm": DegreeForm()
+        })
+
+@login_required
 def getDegree(request, degree_id):
     mydegree = StudentDegree.objects.get(id=degree_id)
     return JsonResponse(mydegree.serialize(), safe=False)
 
-@login_required
-def getPreviousSem(request):
-    student = request.user.student_data.get()
-    current = Current.objects.first()
-    previousSems = student.semester_student.filter(semester__start__lt=current.currentDateTime)
-    return render(request, "courses/previous-semesters.html", {
-        "previousSems" : previousSems
-    })
 
 @login_required
 def course(request,course_code):
@@ -48,3 +57,20 @@ def course(request,course_code):
     return render(request, "courses/course.html", {
         "student_course" : student_course
     })
+
+@login_required
+def registerCourse(request):
+    if request.method == "POST":
+        student = request.user.student_data.get()
+        courseForm = CourseForm(request.POST)
+        if courseForm.is_valid():
+            course = courseForm.cleaned_data["course"]
+            studentsemester = StudentSemester.objects.filter(student=student,status=2).get()
+            studentcourse = StudentCourse(student=student, course=course, semester=studentsemester)
+            studentcourse.save()
+            return HttpResponseRedirect(reverse("dashboard"))
+    return render(request, "courses/registration.html", {
+            "name": "Course",
+            "formUrl": "registerCourse",
+            "registrationForm": CourseForm()
+        })

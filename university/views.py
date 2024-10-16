@@ -75,7 +75,7 @@ def editprofile(request, username):
     
 @login_required    
 def register(request):
-    if request.method == "POST":
+    if request.method == "POST" and request.user.has_perm('university.add_user'):
         userForm = UserForm(request.POST)
         addressForm = AddressForm(request.POST)
         if userForm.is_valid() and addressForm.is_valid():
@@ -103,7 +103,7 @@ def register(request):
                     "userForm": userForm,
                     "addressForm": addressForm
                 })
-    elif request.user.groups.filter(name="University Admin").exists():         
+    elif request.user.has_perm('university.add_user'):         
         return render(request, "university/register.html", {
             "userForm": UserForm(),
             "addressForm": AddressForm()

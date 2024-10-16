@@ -1,0 +1,31 @@
+{% extends "university/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div  id="registration-form">
+        <div class="card">
+            <div class="card-body">    
+                <section>
+                    <h2>{{name}} Registration</h2>
+
+                    {% if message %}
+                        {% if success %}
+                            <div class="alert alert-success" role="alert">{{ message }}</div>
+                        {% else %}
+                            <div class="alert alert-danger" role="alert">{{ message }}</div>
+                        {% endif %}
+                        
+                    {% endif %}
+                    {% load crispy_forms_tags %}
+                    <form action="{% url formUrl %}" method="post" style="margin-bottom: 20px;">
+                        {% csrf_token %}
+                        {{ registrationForm|crispy }}
+                        <input class="btn btn-primary" type="submit" value="Register">
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
