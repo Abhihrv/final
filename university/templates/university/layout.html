@@ -29,7 +29,7 @@
             <div class="row h-100 sidebar">
                 <div class="u-bar u-nav-desktop h-100 hidden-md-down" id="u-bar-mobile-toggle">
                     <div class="logo-header">
-                        <a class="u-logo-desktop navbar-brand" href="{% url 'index' %}"><img class="u-icons" src="{% static 'university/assets/university/logos/ulogo.jpeg' %}" height="70" width="70" alt="U Logo"></a>
+                        <a class="u-logo-desktop navbar-brand" href="{% url 'index' %}"><img class="u-icons" src="{{ MEDIA_URL }}media/university/logos/ulogo.jpeg" height="70" width="70" alt="U Logo"></a>
                     </div>
                     <div class="nav flex-column nav-pills" aria-orientation="vertical">
                         <a class="nav-link home-link" href="{% url 'dashboard' %}" data-section="home">
@@ -85,7 +85,7 @@
 
                 <div class="u-header-mobile d-flex align-items-center">
                     <div class="logo-header-mobile d-inline-block">
-                        <a class="u-logo-mobile" href="{% url 'index' %}"><ig class="u-icons" src="{% static 'university/assets/university/logos/ulogo.jpeg' %}" height="70" width="70" alt="U Logo"></a>
+                        <a class="u-logo-mobile" href="{% url 'index' %}"><ig class="u-icons" src="{{ MEDIA_URL }}media/university/logos/ulogo.jpeg" height="70" width="70" alt="U Logo"></a>
                     </div>
                     <div class="d-inline-block">
                         <a href="#" class="u-menu-link-mobile text-decoration-none">

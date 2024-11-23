@@ -8,7 +8,7 @@
             {% for mydegree in mydegrees %}
                 <div class="col-sm-3">
                     <a href="#degree" class="card course-card mx-auto degree-card" onclick="loadDegree({{ mydegree.id }})">
-                        <img src="{% static 'university/assets/courses/photos/course-photo.jpeg' %}" class="card-img-top" alt="...">
+                        <img src="{{ MEDIA_URL }}media/courses/photos/course-photo.jpeg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6 class="card-title">{{ mydegree.degree.code }}<br>{{ mydegree.degree.name }}</h6>
                         </div>

@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -132,7 +133,7 @@ AUTH_USER_MODEL = "university.User"
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
-MEDIA_URL = 'assets/'
+MEDIA_URL = '/media/'
 LOGIN_URL = '/login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

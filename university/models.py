@@ -12,7 +12,7 @@ class UserType(models.Model):
 #Creating the first model to store users
 class User(AbstractUser):
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE, related_name="users_of_type", default="")
-    
+    photo = models.ImageField(upload_to="media/university/photos", default="media/university/photos/profile-image-placeholder.jpeg")
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
