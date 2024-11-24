@@ -1,4 +1,5 @@
 {% extends "university/layout.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block body %}
@@ -13,10 +14,18 @@
                 <form action="{% url 'editprofile' user.username %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="card-title">
-                        Edit Address
+                        {% if message|length > 0 %}
+                        <div class="alert alert-primary" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endif %}
+                        Edit profile
                     </div>
                     <table>
-                        {{ formAddress.as_table }}
+                        {{ addressForm.as_table }}
+                    </table>
+                    <table>
+                        {{ profileForm.as_table }}
                     </table>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

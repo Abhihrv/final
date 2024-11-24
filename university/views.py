@@ -48,17 +48,18 @@ def profile(request, username):
 def editprofile(request, username):
     user = User.objects.get(username = username)
     if user == request.user:
+        student_data = user.student_data.get()
+        print(user.profile())
         if request.method == "POST":
-            formAddress = AddressForm(request.POST)
-            if formAddress.is_valid():
-                street = formAddress.cleaned_data["street"]
-                apt = formAddress.cleaned_data["apt"]
-                city = formAddress.cleaned_data["city"]
-                pincode = formAddress.cleaned_data["pincode"]
-                country = formAddress.cleaned_data["country"]
-                state = formAddress.cleaned_data["state"]
-                student_data = user.student_data.get()
-                student_data.save()
+            addressForm = AddressForm(request.POST)
+            profileForm = UserProfileForm(request.POST,request.FILES)
+            if addressForm.is_valid() and profileForm.is_valid():
+                street = addressForm.cleaned_data["street"]
+                apt = addressForm.cleaned_data["apt"]
+                city = addressForm.cleaned_data["city"]
+                pincode = addressForm.cleaned_data["pincode"]
+                country = addressForm.cleaned_data["country"]
+                state = addressForm.cleaned_data["state"]
                 address = student_data.address
                 address.street = street
                 address.apt = apt
@@ -66,9 +67,22 @@ def editprofile(request, username):
                 address.pincode = pincode
                 address.country = country
                 address.state = state
-                address.save()
+                photo = profileForm.cleaned_data["photo"]
+                user.photo = photo
+                bio = profileForm.cleaned_data["bio"]
+                user.bio = bio
+                print(user.bio)
+                address.save()  
+                user.save()
+                return render(request, "university/editprofile.html", {
+                    "addressForm": AddressForm(student_data.address.serialize()),
+                    "profileForm": UserProfileForm(user.profile()),
+                    "message": "Success"
+                })
+
         return render(request, "university/editprofile.html", {
-            "formAddress": AddressForm()
+            "addressForm": AddressForm(student_data.address.serialize()),
+            "profileForm": UserProfileForm(user.profile())
         })
     else:
         return render(request, "university/index.html")

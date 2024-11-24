@@ -13,8 +13,15 @@ class UserType(models.Model):
 class User(AbstractUser):
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE, related_name="users_of_type", default="")
     photo = models.ImageField(upload_to="media/university/photos", default="media/university/photos/profile-image-placeholder.jpeg")
+    bio = models.TextField(default="This is the bio section")
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+    def profile(self):
+        return {
+            "photo": self.photo,
+            "bio": self.bio,
+        }   
 
 #Separate class for address
 class Address(models.Model):

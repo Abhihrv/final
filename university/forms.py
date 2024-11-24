@@ -13,3 +13,9 @@ class UserForm(UserCreationForm):
     class Meta:
       model = User
       fields = ["username", "password1", "password2", "first_name", "last_name", "email", "user_type"]
+class UserProfileForm(ModelForm):
+
+    # user_type = forms.ChoiceField(choices=UserType.objects.all().values_list('code', 'name'))
+    class Meta:
+      model = User
+      fields = ["photo", "bio"]
