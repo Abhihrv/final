@@ -60,3 +60,11 @@ class Teaching(models.Model):
 
     def __str__(self):
         return f"{self.user}"
+    
+#Separate Model for University Admins
+class UniversityAdmin(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="admin_data")
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="admin_at_address", default="")
+
+    def __str__(self):
+        return f"{self.user}"

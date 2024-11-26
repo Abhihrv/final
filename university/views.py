@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponseRedirect
+from django.contrib.auth.models import Group
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
-# Create your views here.
+# User Tests
+def admin_check(user):
+    return user.user_type.code == "AD"
 
 #Main index view for the site
 @login_required
@@ -30,6 +33,8 @@ def login_view(request):
             return render(request, "university/login.html", {
                 "message": "Invalid username and/or password."
             })
+    elif request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "university/login.html")
 
@@ -48,7 +53,12 @@ def profile(request, username):
 def editprofile(request, username):
     user = User.objects.get(username = username)
     if user == request.user:
-        student_data = user.student_data.get()
+        if user.user_type.code == "ST":
+            user_data = user.student_data.get()
+        elif user.user_type.code == "TE":
+            user_data = user.teaching_data.get()
+        elif user.user_type.code == "AD":
+            user_data = user.admin_data.get()
         print(user.profile())
         if request.method == "POST":
             addressForm = AddressForm(request.POST)
@@ -60,7 +70,7 @@ def editprofile(request, username):
                 pincode = addressForm.cleaned_data["pincode"]
                 country = addressForm.cleaned_data["country"]
                 state = addressForm.cleaned_data["state"]
-                address = student_data.address
+                address = user_data.address
                 address.street = street
                 address.apt = apt
                 address.city = city
@@ -75,19 +85,20 @@ def editprofile(request, username):
                 address.save()  
                 user.save()
                 return render(request, "university/editprofile.html", {
-                    "addressForm": AddressForm(student_data.address.serialize()),
+                    "addressForm": AddressForm(user_data.address.serialize()),
                     "profileForm": UserProfileForm(user.profile()),
                     "message": "Success"
                 })
 
         return render(request, "university/editprofile.html", {
-            "addressForm": AddressForm(student_data.address.serialize()),
+            "addressForm": AddressForm(user_data.address.serialize()),
             "profileForm": UserProfileForm(user.profile())
         })
     else:
         return render(request, "university/index.html")
     
 @login_required    
+@user_passes_test(admin_check, redirect_field_name=None)
 def register(request):
     if request.method == "POST" and request.user.has_perm('university.add_user'):
         userForm = UserForm(request.POST)
@@ -104,6 +115,13 @@ def register(request):
                 print("teaching")
                 teaching = Teaching(user=user, address=address)
                 teaching.save()
+            elif user.user_type.code == "AD":
+                print("Admin")
+                admin = UniversityAdmin(user=user, address=address)
+                admin.save()
+                group = Group.objects.get(name='University Admin')
+                user.groups.add(group) 
+
             return render(request, "university/register.html", {
                     "message": "User Added!",
                     "success": True,

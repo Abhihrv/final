@@ -1,34 +1,55 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
+from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
-# Create your views here
+# User Tests
+def student_check(user):
+    return user.user_type.code == "ST"
 
 #Index view for courses app
 @login_required
+@user_passes_test(student_check, redirect_field_name=None)
 def dashboard(request):
     student = request.user.student_data.get()
     currentSem = Current.objects.first().currentSemester
-    currentStudentSem = StudentSemester.objects.filter(student=student, semester=currentSem).get()
-    student_courses = student.courses_of_student.filter(semester = currentStudentSem)
-    return render(request, "courses/dashboard.html", {
-        "student_courses" : student_courses
-    })
+
+    try:
+        currentStudentSem = StudentSemester.objects.filter(student=student, semester=currentSem).get()
+        student_courses = student.courses_of_student.filter(semester = currentStudentSem)
+        return render(request, "courses/dashboard.html", {
+            "student_courses" : student_courses
+        })
+    except ObjectDoesNotExist:
+        return render(request, "courses/dashboard.html", {
+            "student_courses" : [],
+            "error": True,
+            "errorMessage": "Please enroll in a semester and a course first" 
+        })
+        
+    
 
 @login_required
+@user_passes_test(student_check, redirect_field_name=None)
 def degree(request):
     student = request.user.student_data.get()
     mydegrees = student.degrees_of_student.all()
+    if len(mydegrees) == 0:
+        return render(request, "courses/degree.html", {
+            "mydegrees" : mydegrees,
+            "error": True,
+            "errorMessage": "No Degree Found" 
+        })
     return render(request, "courses/degree.html", {
         "mydegrees" : mydegrees
     })
 
 @login_required
+@user_passes_test(student_check, redirect_field_name=None)
 def registerDegree(request):
     if request.method == "POST":
         student = request.user.student_data.get()
@@ -51,6 +72,7 @@ def getDegree(request, degree_id):
 
 
 @login_required
+@user_passes_test(student_check, redirect_field_name=None)
 def course(request,course_code):
     course = Course.objects.get(code=course_code)
     student_course = StudentCourse.objects.get(student=Student.objects.get(user=request.user), course=course)
@@ -59,6 +81,7 @@ def course(request,course_code):
     })
 
 @login_required
+@user_passes_test(student_check, redirect_field_name=None)
 def registerCourse(request):
     if request.method == "POST":
         student = request.user.student_data.get()

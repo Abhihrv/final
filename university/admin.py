@@ -17,9 +17,12 @@ class StudentAdmin(admin.ModelAdmin):
 class TeachingAdmin(admin.ModelAdmin):
     list_display = ('user', 'address')
 
+class UniversityAdminAdmin(admin.ModelAdmin):
+    list_display = ('user', 'address')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(UserType, UserTypeAdmin)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Teaching, TeachingAdmin)
+admin.site.register(UniversityAdmin, UniversityAdminAdmin)

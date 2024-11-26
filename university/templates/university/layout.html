@@ -37,22 +37,24 @@
                             <span>Home</span>
                         </a>
                         {% if user.is_authenticated %}
-                            <a class="u-nav nav-link" href="#profile" data-section="profile">
-                                <i class="bi bi-person"></i>
-                                <span>Profile</span>
-                            </a>
-                            <a class="u-nav nav-link" href="#courses" data-section="courses">
-                                <i class="bi bi-book"></i>
-                                <span>Courses</span>
-                            </a>
-                            <a class="u-nav nav-link" href="#settings" data-section="settings">
-                                <i class="bi bi-gear"></i>
-                                <span>Admin</span>
-                            </a>
-                            <a class="nav-link" href="{% url 'logout' %}" data-section="logout">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Logout</span>
-                            </a>
+                        <a class="u-nav nav-link" href="#profile" data-section="profile">
+                            <i class="bi bi-person"></i>
+                            <span>Profile</span>
+                        </a>
+                        {% if user.user_type.code == 'ST' %}
+                        <a class="u-nav nav-link" href="#courses" data-section="courses">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        {% endif %}
+                        <a class="u-nav nav-link" href="#settings" data-section="settings">
+                            <i class="bi bi-gear"></i>
+                            <span>Admin</span>
+                        </a>
+                        <a class="nav-link" href="{% url 'logout' %}" data-section="logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Logout</span>
+                        </a>
                         {% endif %}
                     </div>
                 </div>
@@ -72,8 +74,10 @@
                                     {% if perms.university.add_user %}
                                     <a class="umenu-row-link" href={% url 'register' %}>User Registration</a>
                                     {% endif %}
+                                    {% if user.user_type.code == 'ST' %}
                                     <a class="umenu-row-link" href={% url 'registerDegree' %}>Degree Registration</a>
                                     <a class="umenu-row-link" href={% url 'registerCourse' %}>Course Registration</a>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         </div>
