@@ -7,7 +7,7 @@
     <img src="{% static 'university/assets/university/photos/profile-banner.jpeg' %}" class="profile-banner" alt="Responsive image">
 </div>
 
-<div class="d-flex align-items-center min-vh-100">
+<div class="d-flex align-items-center min-vh-100 mt-5 mb-5">
     <div class="container edit-profile-form-container">
         <div class="card">
             <div class="card-body">
@@ -21,12 +21,8 @@
                         {% endif %}
                         Edit profile
                     </div>
-                    <table>
-                        {{ addressForm.as_table }}
-                    </table>
-                    <table>
-                        {{ profileForm.as_table }}
-                    </table>
+                    {{ addressForm|crispy }}
+                    {{ profileForm|crispy }}
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

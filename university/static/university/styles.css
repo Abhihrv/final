@@ -115,6 +115,10 @@ html,body {
     transform: translateY(-100%);
     transition: transform ease-in-out 100ms;
 }
+
+.tab-menu-mobile-hidden {
+    display: none !important;
+}
 /* Mobile version settings End */
 
 /* Sidebar Settings */
