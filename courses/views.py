@@ -17,10 +17,15 @@ def student_check(user):
 def dashboard(request):
     student = request.user.student_data.get()
     currentSem = Current.objects.first().currentSemester
-
     try:
         currentStudentSem = StudentSemester.objects.filter(student=student, semester=currentSem).get()
         student_courses = student.courses_of_student.filter(semester = currentStudentSem)
+        if len(student_courses) == 0:
+            return render(request, "courses/dashboard.html", {
+            "student_courses" : [],
+            "error": True,
+            "errorMessage": "Please enroll in a semester or a course first" 
+        })
         return render(request, "courses/dashboard.html", {
             "student_courses" : student_courses
         })
@@ -28,7 +33,7 @@ def dashboard(request):
         return render(request, "courses/dashboard.html", {
             "student_courses" : [],
             "error": True,
-            "errorMessage": "Please enroll in a semester and a course first" 
+            "errorMessage": "Please enroll in a semester or a course first" 
         })
         
     

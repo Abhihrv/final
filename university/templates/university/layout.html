@@ -47,10 +47,12 @@
                             <span>Courses</span>
                         </a>
                         {% endif %}
+                        {% if user.user_type.code == 'ST' or user.user_type.code == 'AD' %}
                         <a class="u-nav nav-link" href="#settings" data-section="settings">
                             <i class="bi bi-gear"></i>
                             <span>Admin</span>
                         </a>
+                        {% endif %}
                         <a class="nav-link" href="{% url 'logout' %}" data-section="logout">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Logout</span>

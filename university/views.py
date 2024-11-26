@@ -118,9 +118,12 @@ def register(request):
             elif user.user_type.code == "AD":
                 print("Admin")
                 admin = UniversityAdmin(user=user, address=address)
-                admin.save()
                 group = Group.objects.get(name='University Admin')
                 user.groups.add(group) 
+                user.is_staff = True
+                user.save()
+                admin.save()
+                
 
             return render(request, "university/register.html", {
                     "message": "User Added!",
