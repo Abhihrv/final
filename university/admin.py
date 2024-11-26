@@ -8,33 +8,21 @@ class UserAdmin(admin.ModelAdmin):
 class UserTypeAdmin(admin.ModelAdmin):
     list_display = ('code', 'name')
 
-class GenderAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name')
-
-class AddressTypeAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name')
-
 class AddressAdmin(admin.ModelAdmin):
-    list_display = ('street', 'apt', 'city', 'pincode', 'country', 'address_type', 'state')
+    list_display = ('street', 'apt', 'city', 'pincode', 'country', 'state')
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'age', 'gender', 'address_home', 'address_current', 'designation')
-
-class DesginationAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name')
+    list_display = ('user','address')
 
 class TeachingAdmin(admin.ModelAdmin):
-    list_display = ('user', 'designation', 'age', 'gender', 'address')
+    list_display = ('user', 'address')
 
-class StaffAdmin(admin.ModelAdmin):
-    list_display = ('user', 'designation', 'age', 'gender', 'address')
+class UniversityAdminAdmin(admin.ModelAdmin):
+    list_display = ('user', 'address')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(UserType, UserTypeAdmin)
-admin.site.register(Gender, GenderAdmin)
-admin.site.register(AddressType, AddressTypeAdmin)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(Student, StudentAdmin)
-admin.site.register(Desgination, DesginationAdmin)
 admin.site.register(Teaching, TeachingAdmin)
-admin.site.register(Staff, StaffAdmin)
+admin.site.register(UniversityAdmin, UniversityAdminAdmin)

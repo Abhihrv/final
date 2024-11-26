@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Loading Script')
     document.querySelectorAll('.u-nav').forEach(navlink => {
         navlink.onclick = (event) => {
             event.stopPropagation();
@@ -14,12 +15,26 @@ document.addEventListener('DOMContentLoaded', function() {
             showLinks(umenu, navlink.getAttribute('data-section'));
         };
     });
+    console.log('Loading Script')
+    console.log('classes',document.querySelectorAll('.u-nav-mobile-icons'))
+    document.querySelectorAll('.u-nav-mobile-icons').forEach(navlink => {
+        navlink.onclick = (event) => {
+            console.log('added listeners')
+            event.stopPropagation();
+            mobileMainMenu = document.querySelector('.u-menu-mobile-main');
+            mobileTabMenu = document.querySelector('.u-menu-mobile-tab');
+            mobileMainMenu.classList.add('tab-menu-mobile-hidden');
+            mobileTabMenu.classList.remove('tab-menu-mobile-hidden');
+            clearUmenu(mobileTabMenu);
+            showLinks(mobileTabMenu, navlink.getAttribute('data-section'));
+        };
+    });
     document.querySelector('.u-menu').onclick = (event) => {
         event.stopPropagation();
-    }
+    };
     document.querySelector('.u-menu-mobile').onclick = (event) => {
         event.stopPropagation();
-    }
+    };
     document.querySelector('.u-menu-link-mobile').onclick = (event) => {
         event.stopPropagation();
         umenuMobile = document.querySelector('.u-menu-mobile');
@@ -28,13 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             openMobileDrawer(umenuMobile);
         }
-    }
-})
+    };
+});
 
 /* Make all the elements inactive */
 function removeAllActive (className) {
-    document.querySelectorAll(className).forEach(element => element.classList.remove('active'))
-}
+    document.querySelectorAll(className).forEach(element => element.classList.remove('active'));
+};
 
 /* Close navigation menu */
 function closeDrawer(element) {
@@ -43,7 +58,7 @@ function closeDrawer(element) {
     document.querySelector('.body').style.opacity = 1;
     document.querySelector('.body').setAttribute('style','filter: blur(0px)') ;
     removeAllActive ('.nav-link');
-}
+};
 
 /* Open navigation menu */
 function openDrawer(element) {
@@ -51,7 +66,7 @@ function openDrawer(element) {
     element.classList.add('open-drawer');
     document.querySelector('.body').style.opacity = 0.2;
     document.querySelector('.body').setAttribute('style','filter: blur(2px)');
-}
+};
 
 /* Close navigation menu on mobile */
 function closeMobileDrawer(element) {
@@ -59,7 +74,13 @@ function closeMobileDrawer(element) {
     element.classList.add('close-mobile-drawer');
     document.querySelector('.body').style.opacity = 1;
     document.querySelector('.body').setAttribute('style','filter: blur(0px)') ;
-}
+    mobileMainMenu = document.querySelector('.u-menu-mobile-main');
+    mobileTabMenu = document.querySelector('.u-menu-mobile-tab');
+    if (mobileMainMenu.classList.value.includes('tab-menu-mobile-hidden')) {
+        mobileMainMenu.classList.remove('tab-menu-mobile-hidden');
+        mobileTabMenu.classList.add('tab-menu-mobile-hidden');
+    }
+};
 
 /* Open navigation menu on mobile */
 function openMobileDrawer(element) {
@@ -67,7 +88,7 @@ function openMobileDrawer(element) {
     element.classList.add('open-mobile-drawer');
     document.querySelector('.body').style.opacity = 0.2;
     document.querySelector('.body').setAttribute('style','filter: blur(2px)') ;
-}
+};
 
 /* Close navigation menu if user clicks outside it */
 window.addEventListener('click', function(event) {
@@ -77,8 +98,8 @@ window.addEventListener('click', function(event) {
 
 function clearUmenu(umenu) {
     umenu.querySelectorAll('.umenu-row').forEach(element => element.style.display = 'none')
-}
+};
 
 function showLinks(umenu, linkId) {
     umenu.querySelector(`#${linkId}`).style.display = 'block'
-}
+};

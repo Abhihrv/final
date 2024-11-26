@@ -115,6 +115,10 @@ html,body {
     transform: translateY(-100%);
     transition: transform ease-in-out 100ms;
 }
+
+.tab-menu-mobile-hidden {
+    display: none !important;
+}
 /* Mobile version settings End */
 
 /* Sidebar Settings */
@@ -241,6 +245,14 @@ html,body {
     padding: 10px;
     border-radius: 10px;
     background-color: #e7e2e2;
+}
+
+#registration-form .card,.table{
+    border-color: transparent;
+}
+
+#registration-form .helptext {
+    font-size: 11px;
 }
 /* Main Body settings End */
 

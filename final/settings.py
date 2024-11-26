@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'courses',
     'university',
     'simple_history',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -118,6 +121,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -127,7 +133,7 @@ AUTH_USER_MODEL = "university.User"
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
-MEDIA_URL = 'assets/'
+MEDIA_URL = '/media/'
 LOGIN_URL = '/login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

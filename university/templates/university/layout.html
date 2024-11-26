@@ -29,34 +29,34 @@
             <div class="row h-100 sidebar">
                 <div class="u-bar u-nav-desktop h-100 hidden-md-down" id="u-bar-mobile-toggle">
                     <div class="logo-header">
-                        <a class="u-logo-desktop navbar-brand" href="{% url 'index' %}"><img class="u-icons" src="{% static 'university/assets/university/logos/ulogo.jpeg' %}" height="70" width="70" alt="U Logo"></a>
+                        <a class="u-logo-desktop navbar-brand" href="{% url 'index' %}"><img class="u-icons" src="{{ MEDIA_URL }}media/university/logos/ulogo.jpeg" height="70" width="70" alt="U Logo"></a>
                     </div>
                     <div class="nav flex-column nav-pills" aria-orientation="vertical">
-                        <a class="nav-link home-link" href="{% url 'index' %}" data-section="home">
+                        <a class="nav-link home-link" href="{% url 'dashboard' %}" data-section="home">
                             <i class="bi bi-house"></i>
                             <span>Home</span>
                         </a>
                         {% if user.is_authenticated %}
-                            <a class="u-nav nav-link" href="#profile" data-section="profile">
-                                <i class="bi bi-person"></i>
-                                <span>Profile</span>
-                            </a>
-                            <a class="u-nav nav-link" href="#courses" data-section="courses">
-                                <i class="bi bi-book"></i>
-                                <span>Courses</span>
-                            </a>
-                            <a class="u-nav nav-link" href="#chat" data-section="chat">
-                                <i class="bi bi-chat-square-text"></i>
-                                <span>Connect</span>
-                            </a>
-                            <a class="u-nav nav-link" href="#settings" data-section="settings">
-                                <i class="bi bi-gear"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a class="nav-link" href="{% url 'logout' %}" data-section="logout">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Logout</span>
-                            </a>
+                        <a class="u-nav nav-link" href="#profile" data-section="profile">
+                            <i class="bi bi-person"></i>
+                            <span>Profile</span>
+                        </a>
+                        {% if user.user_type.code == 'ST' %}
+                        <a class="u-nav nav-link" href="#courses" data-section="courses">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        {% endif %}
+                        {% if user.user_type.code == 'ST' or user.user_type.code == 'AD' %}
+                        <a class="u-nav nav-link" href="#settings" data-section="settings">
+                            <i class="bi bi-gear"></i>
+                            <span>Admin</span>
+                        </a>
+                        {% endif %}
+                        <a class="nav-link" href="{% url 'logout' %}" data-section="logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Logout</span>
+                        </a>
                         {% endif %}
                     </div>
                 </div>
@@ -71,13 +71,15 @@
                                 <div id="courses" class="umenu-row">
                                     <a class="umenu-row-link" href="{% url 'dashboard' %}">My Dashboard</a>
                                     <a class="umenu-row-link" href="{% url 'mydegree' %}">My Degree</a>
-                                    <a class="umenu-row-link" href="{% url 'getPreviousSem' %}">Previous Semesters</a>
                                 </div>
                                 <div id="settings" class="umenu-row">
-                                    <a class="umenu-row-link" href="#">Settings</a>
-                                </div>
-                                <div id="chat" class="umenu-row">
-                                    <a class="umenu-row-link" href="#">My Inbox</a>
+                                    {% if perms.university.add_user %}
+                                    <a class="umenu-row-link" href={% url 'register' %}>User Registration</a>
+                                    {% endif %}
+                                    {% if user.user_type.code == 'ST' %}
+                                    <a class="umenu-row-link" href={% url 'registerDegree' %}>Degree Registration</a>
+                                    <a class="umenu-row-link" href={% url 'registerCourse' %}>Course Registration</a>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         </div>
@@ -86,7 +88,7 @@
 
                 <div class="u-header-mobile d-flex align-items-center">
                     <div class="logo-header-mobile d-inline-block">
-                        <a class="u-logo-mobile" href="{% url 'index' %}"><img class="u-icons" src="{% static 'university/assets/university/logos/ulogo.jpeg' %}" height="70" width="70" alt="U Logo"></a>
+                        <a class="u-logo-mobile" href="{% url 'index' %}"><ig class="u-icons" src="{{ MEDIA_URL }}media/university/logos/ulogo.jpeg" height="70" width="70" alt="U Logo"></a>
                     </div>
                     <div class="d-inline-block">
                         <a href="#" class="u-menu-link-mobile text-decoration-none">
@@ -96,28 +98,49 @@
                 </div>
 
                 <nav class="u-menu-mobile navbar sticky-top close-mobile-drawer">
-                    <div class="container-fluid  justify-content-center">
+                    <div class="container-fluid  justify-content-center u-menu-mobile-main">
                         <div class="u-nav-mobile navbar-nav">
-                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#">
+                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="{% url 'dashboard' %}" data-section="home">
+                                <i class="bi bi-house"></i>
+                                <span>Home</span>
+                            </a>
+                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#profile" data-section="profile">
                                 <i class="bi bi-person"></i>
                                 <span>Profile</span>
                             </a>
-                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#">
+                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#courses" data-section="courses">
                                 <i class="bi bi-book"></i>
                                 <span>Courses</span>
                             </a>
-                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#">
-                                <i class="bi bi-chat-square-text"></i>
-                                <span>Connect</span>
-                            </a>
-                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#">
+                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#settings" data-section="settings">
                                 <i class="bi bi-gear"></i>
-                                <span>Settings</span>
+                                <span>Admin</span>
                             </a>
-                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="#">
+                            <a class="u-nav-mobile-icons nav-link text-decoration-none" href="{% url 'logout' %}" data-section="home">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Logout</span>
                             </a>
+                        </div>
+                    </div>
+                    <div class="container-fluid  justify-content-center u-menu-mobile-tab tab-menu-mobile-hidden">
+                        <div class="u-nav-mobile navbar-nav" style="width: 100%;">
+                            {% if user.is_authenticated %}
+                            <div id="profile" class="umenu-row">
+                                <a class="umenu-row-link" href="{% url 'profile' user.username %}">My Profile</a>
+                                <a class="umenu-row-link" href="{% url 'editprofile' user.username %}">Edit Profile</a>
+                            </div>
+                            <div id="courses" class="umenu-row">
+                                <a class="umenu-row-link" href="{% url 'dashboard' %}">My Dashboard</a>
+                                <a class="umenu-row-link" href="{% url 'mydegree' %}">My Degree</a>
+                            </div>
+                            <div id="settings" class="umenu-row">
+                                {% if perms.university.add_user %}
+                                <a class="umenu-row-link" href={% url 'register' %}>User Registration</a>
+                                {% endif %}
+                                <a class="umenu-row-link" href={% url 'registerDegree' %}>Degree Registration</a>
+                                <a class="umenu-row-link" href={% url 'registerCourse' %}>Course Registration</a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </nav>

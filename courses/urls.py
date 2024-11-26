@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('degree', views.degree, name='mydegree'),
     path('degree/<int:degree_id>', views.getDegree, name='getDegree'),
-    path('semester/previous', views.getPreviousSem, name='getPreviousSem'),
-    path('<str:course_code>', views.course, name='course')
+    path('degree/register', views.registerDegree, name='registerDegree'),
+    path('<str:course_code>', views.course, name='course'),
+    path('course/register', views.registerCourse, name='registerCourse')
 ]
